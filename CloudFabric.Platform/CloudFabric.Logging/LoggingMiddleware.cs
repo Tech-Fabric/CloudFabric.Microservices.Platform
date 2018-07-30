@@ -53,11 +53,13 @@
             {
                 Guid correlationToken;
                 var owinContext = new OwinContext(env);
-                if (!(owinContext.Request.Headers["Correlation-Token"] != null
-                      && Guid.TryParse(owinContext.Request.Headers["Correlation-Token"], out correlationToken)))
+                if (!(owinContext.Request.Headers["Correlation-Token"] != null && Guid.TryParse(owinContext.Request.Headers["Correlation-Token"], out correlationToken)))
+                {
                     correlationToken = Guid.NewGuid();
+                }
 
                 owinContext.Set("correlationToken", correlationToken.ToString());
+
                 using (LogContext.PushProperty("CorrelationToken", correlationToken))
                     await next(env).ConfigureAwait(false);
             };
@@ -76,7 +78,7 @@
                 }
                 catch (Exception ex)
                 {
-                    log.Error(ex, "Unhandled exception");
+                    log.Error(ex, "Unhandled exception : " + ex?.Message);
                 }
             };
         }

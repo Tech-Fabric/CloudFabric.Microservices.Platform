@@ -6,8 +6,12 @@
 
   <ItemGroup>
     <PackageReference Include="loggly-csharp-config" Version="4.6.1.55" />
+    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.6.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.1" />
     <PackageReference Include="Serilog" Version="2.7.1" />
-    <PackageReference Include="Serilog.Sinks.Loggly" Version="5.2.0" />
+    <PackageReference Include="Serilog.Sinks.Loggly" Version="5.3.0" />
   </ItemGroup>
 
 </Project>
