@@ -10,6 +10,7 @@ using Microsoft.ApplicationInsights.DataContracts;
 
 namespace CloudFabric.Logging
 {
+    // Alternate Approach : https://exceptionnotfound.net/using-middleware-to-log-requests-and-responses-in-asp-net-core/
     public class RequestLoggingMiddlewareExtended
     {
         private readonly RequestDelegate _next;
