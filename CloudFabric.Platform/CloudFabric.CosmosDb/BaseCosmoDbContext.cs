@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -41,7 +40,7 @@ namespace CloudFabric.CosmosDb
 
         public void CreateOrUpdate<T>(List<T> obj) where T : BaseDocument
         {
-            var userId = _httpContextAccessor?.HttpContext?.User?.FindFirst("id")?.Value;
+            var userId = GetCurrentUserId();
             obj.ForEach(o =>
             {
                 if (o.Id == ObjectId.Empty)
@@ -65,6 +64,7 @@ namespace CloudFabric.CosmosDb
             return $"{prefix}{Math.Abs(asInt) % numberOfPartitions}";
         }
 
+        public abstract string GetCurrentUserId();
 
         #region IDisposable
         public void Dispose()
