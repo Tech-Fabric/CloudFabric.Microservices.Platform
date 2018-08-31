@@ -11,11 +11,9 @@ namespace CloudFabric.CosmosDb
     {
         protected bool _disposed = false;
         protected readonly MongoClient _client;
-        protected readonly IHttpContextAccessor _httpContextAccessor;
 
-        public BaseCosmoDbContext(IHttpContextAccessor httpContextAccessor)
+        public BaseCosmoDbContext()
         {
-            _httpContextAccessor = httpContextAccessor;
             var cosmoConnectionString = (string)Environment.GetEnvironmentVariable("CosmoConnectionString");
             if(cosmoConnectionString == null)
             {
