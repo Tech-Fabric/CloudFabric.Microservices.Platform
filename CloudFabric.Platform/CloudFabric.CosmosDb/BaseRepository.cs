@@ -46,9 +46,20 @@ namespace CloudFabric.CosmosDb
 
         public async Task DeleteAsync(ObjectId id)
         {
-            var foundDocument = await GetByIdAsync(id);
-            foundDocument.IsDeleted = true;
-            await UpdateAsync(foundDocument);
+            await DeleteAsync(new List<ObjectId> { id });
+        }
+        public async Task DeleteAsync(List<ObjectId> ids)
+        {
+            List<T> documents = new List<T>();
+            foreach(var id in ids)
+            {
+                documents.Add(await GetByIdAsync(id));
+            }
+
+            documents.ForEach(async doc => {
+                doc.IsDeleted = true;
+                await UpdateAsync(doc);
+            });
         }
 
         public async Task<T> GetByIdAsync(ObjectId id)

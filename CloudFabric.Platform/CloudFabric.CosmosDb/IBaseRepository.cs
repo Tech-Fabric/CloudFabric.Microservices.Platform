@@ -12,6 +12,7 @@ namespace CloudFabric.CosmosDb
         Task<T> CreateAsync(T document);
         Task<T> UpdateAsync(T documet);
         Task DeleteAsync(ObjectId id);
+        Task DeleteAsync(List<ObjectId> ids);
         Task<T> GetByIdAsync(ObjectId id);
         IMongoCollection<T> GetCollection();
     }
