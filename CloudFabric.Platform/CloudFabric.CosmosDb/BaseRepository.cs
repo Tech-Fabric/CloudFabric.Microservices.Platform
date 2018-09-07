@@ -29,18 +29,12 @@ namespace CloudFabric.CosmosDb
         }
         public async Task<T> CreateAsync(T document)
         {
-            var tmpPartitionKey = "tmpPartitionKey";
-            document.PartitionKey = tmpPartitionKey;
-
             _dbContext.CreateOrUpdate(document);
-            await Collection.InsertOneAsync(document);
 
+            document.Id = ObjectId.GenerateNewId();
             document.PartitionKey = GetPartitionKey(document.Id.ToString());
 
-            await Collection.ReplaceOneAsync(doc =>
-                doc.PartitionKey == tmpPartitionKey
-                && doc.Id == document.Id,
-                document);
+            await Collection.InsertOneAsync(document);
             return document;
         }
 
