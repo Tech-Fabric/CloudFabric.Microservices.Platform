@@ -43,10 +43,10 @@ namespace CloudFabric.CosmosDb
             {
                 if (o.Id == ObjectId.Empty)
                 {
-                    o.CreatedBy = userId;
+                    o.CreatedBy = userId == null ? ObjectId.Empty : ObjectId.Parse(userId);
                     o.CreatedAt = DateTime.UtcNow;
                 }
-                o.LastUpdatedBy = userId;
+                o.LastUpdatedBy = userId == null ? ObjectId.Empty : ObjectId.Parse(userId);
                 o.LastUpdatedAt = DateTime.UtcNow;
             });
         }

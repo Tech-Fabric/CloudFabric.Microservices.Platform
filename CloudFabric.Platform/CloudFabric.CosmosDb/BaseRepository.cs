@@ -89,5 +89,22 @@ namespace CloudFabric.CosmosDb
         {
             return _dbContext.GetPartitionKey(PartitonPrefix, id, NumberOfPartitions);
         }
+
+
+
+        public FilterDefinition<T> BuildIsDeletedFilter(bool? isDeleted)
+        {
+            return isDeleted == null ?
+                null :
+                Builders<T>.Filter.Where(doc => doc.IsDeleted == isDeleted);
+        }
+
+        public FilterDefinition<T> BuildIdFilter(string id)
+        {
+            return id == null ?
+                null :
+                Builders<T>.Filter.Where(doc => doc.PartitionKey == GetPartitionKey(id)) &
+                Builders<T>.Filter.Where(doc => doc.Id == ObjectId.Parse(id));
+        }
     }
 }

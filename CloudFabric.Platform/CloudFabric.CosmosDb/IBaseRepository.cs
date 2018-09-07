@@ -15,5 +15,8 @@ namespace CloudFabric.CosmosDb
         Task DeleteAsync(List<ObjectId> ids);
         Task<T> GetByIdAsync(ObjectId id);
         IMongoCollection<T> GetCollection();
+
+        FilterDefinition<T> BuildIsDeletedFilter(bool? isDeleted);
+        FilterDefinition<T> BuildIdFilter(string id);
     }
 }
