@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudFabric.Auth", "CloudFa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudFabric.EventStore", "CloudFabric.EventStore\CloudFabric.EventStore.csproj", "{4CE5CE8D-E94D-4B19-AFC9-FEE7013777C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudFabric.CosmosDb", "CloudFabric.CosmosDb\CloudFabric.CosmosDb.csproj", "{E1850E20-CE13-4B46-BFB5-6324AE360E28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudFabric.CosmosDb", "CloudFabric.CosmosDb\CloudFabric.CosmosDb.csproj", "{E1850E20-CE13-4B46-BFB5-6324AE360E28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudFabric.EventGrid", "CloudFabric.EventGrid\CloudFabric.EventGrid.csproj", "{8344F864-1643-48C7-9096-EA2FD6C2F941}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{E1850E20-CE13-4B46-BFB5-6324AE360E28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1850E20-CE13-4B46-BFB5-6324AE360E28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1850E20-CE13-4B46-BFB5-6324AE360E28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8344F864-1643-48C7-9096-EA2FD6C2F941}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8344F864-1643-48C7-9096-EA2FD6C2F941}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8344F864-1643-48C7-9096-EA2FD6C2F941}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8344F864-1643-48C7-9096-EA2FD6C2F941}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
