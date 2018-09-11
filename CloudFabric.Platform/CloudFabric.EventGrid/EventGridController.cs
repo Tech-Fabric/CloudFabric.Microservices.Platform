@@ -1,5 +1,6 @@
 ﻿using CloudFabric.EventGrid.Enums;
 using CloudFabric.EventGrid.Events;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.EventGrid.Models;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CloudFabric.EventGrid
 {
-    public abstract class EventGridController
+    public abstract class EventGridController : Controller
     {
         protected async Task<SubscriptionValidationResponse> Run(BaseEvent[] eventGridEvents)
         {

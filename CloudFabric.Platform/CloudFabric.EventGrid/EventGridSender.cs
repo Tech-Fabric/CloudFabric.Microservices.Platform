@@ -24,7 +24,6 @@ namespace CloudFabric.EventGrid
         {
         
             _httpClient.DefaultRequestHeaders.Add("aeg-sas-key", sasKey);
-            _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("democlient");
 
             events.ForEach(e =>
             {
