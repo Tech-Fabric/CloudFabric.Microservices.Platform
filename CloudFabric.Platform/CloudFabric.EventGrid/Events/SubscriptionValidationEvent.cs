@@ -8,6 +8,15 @@ namespace CloudFabric.EventGrid.Events
 {
     public class SubscriptionValidationEvent : BaseEvent
     {
-        public override string Type => EventTypeEnumFactory.SubscriptionValidationEvent;
+        public new string EventType {
+            get
+            {
+                return EventTypeEnumFactory.SubscriptionValidationEvent;
+            }
+            set
+            {
+
+            }
+        }
     }
 }
