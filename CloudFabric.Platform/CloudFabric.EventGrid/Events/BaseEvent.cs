@@ -14,7 +14,7 @@ namespace CloudFabric.EventGrid.Events
         }
         public bool EqualsType(string type)
         {
-            return string.Equals(EventType.ToLower(), type);
+            return string.Equals(EventType.ToLower(), type.ToLower());
         }
     }
 }
