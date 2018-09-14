@@ -6,8 +6,14 @@ using Microsoft.Azure.EventGrid.Models;
 
 namespace CloudFabric.EventGrid.Events
 {
-    public class BaseEvent : EventGridEvent
+    public class BaseEvent : BaseEvent<object>
     {
+
+    }
+    public class BaseEvent<TDataType> : EventGridEvent
+    {
+        public new BaseEventData<TDataType> Data { get; set; }
+
         public bool EqualsType(BaseEvent e)
         {
             return EqualsType(e.EventType);

@@ -16,11 +16,11 @@ namespace CloudFabric.EventGrid
             _httpClient = httpClient;
         }
 
-        public async Task SendAsync(string topicEndpoint, string sasKey, BaseEvent e)
+        public async Task SendAsync<TEvent, TEventType>(string topicEndpoint, string sasKey, TEvent e) where TEvent : BaseEvent<TEventType>
         {
-            await SendAsync(topicEndpoint, sasKey, new List<BaseEvent> { e });
+            await SendAsync<TEvent, TEventType>(topicEndpoint, sasKey, new List<TEvent> { e });
         }
-        public async Task SendAsync(string topicEndpoint, string sasKey, List<BaseEvent> events)
+        public async Task SendAsync<TEvent, TEventType>(string topicEndpoint, string sasKey, List<TEvent> events) where TEvent : BaseEvent<TEventType>
         {
         
             _httpClient.DefaultRequestHeaders.Add("aeg-sas-key", sasKey);

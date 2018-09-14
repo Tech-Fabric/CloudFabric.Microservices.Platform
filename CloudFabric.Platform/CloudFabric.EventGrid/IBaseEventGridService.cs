@@ -9,6 +9,6 @@ namespace CloudFabric.EventGrid
 {
     public interface IBaseEventGridService
     {
-        Task<SubscriptionValidationResponse> Run(BaseEvent[] eventGridEvents);
+        Task<SubscriptionValidationResponse> Run(EventGridEvent[] eventGridEvents);
     }
 }
