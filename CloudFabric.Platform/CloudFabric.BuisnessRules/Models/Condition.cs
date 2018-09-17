@@ -22,8 +22,15 @@ namespace CloudFabric.BuisnessRules.Models
 
         public bool IsTrue()
         {
+            IComparerFactory comparerFactory = null;
+            switch (Comparer.Type)
+            {
+                case ComparerTypeEnum.Is: comparerFactory = new IsTypeEnumFactory(); break;
+                case ComparerTypeEnum.NumberComparer: comparerFactory = new NumberComparerTypeEnumFactory(); break;
+                default: throw new NotImplementedException($"Comparer Type {Comparer.Type}");
+            }
 
-            return false;
+            return comparerFactory.Compare(Value1, Comparer, Value2);
         }
     }
 }

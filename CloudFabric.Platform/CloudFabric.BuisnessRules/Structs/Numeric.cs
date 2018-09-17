@@ -18,6 +18,7 @@ namespace CloudFabric.BuisnessRules.Structs
         IComparable<float>,
         IComparable<long>,
         IComparable<short>,
+        IComparable<string>,
         IComparable<DateTime>
     {
         bool IComparable<int>.IsLessThanOrEqualTo(int val1, int val2) => val1 <= val2;
@@ -55,5 +56,12 @@ namespace CloudFabric.BuisnessRules.Structs
         bool IComparable<DateTime>.IsEqual(DateTime val1, DateTime val2) => DateTime.Compare(val1, val2) == 0;
         bool IComparable<DateTime>.IsGreaterThan(DateTime val1, DateTime val2) => DateTime.Compare(val1, val2) > 0;
         bool IComparable<DateTime>.IsGreaterThanOrEqualTo(DateTime val1, DateTime val2) => DateTime.Compare(val1, val2) >= 0;
+
+        bool IComparable<string>.IsLessThanOrEqualTo(string val1, string val2) => throw new NotImplementedException();
+        bool IComparable<string>.IsLessThan(string val1, string val2) => throw new NotImplementedException();
+        bool IComparable<string>.IsEqual(string val1, string val2) => val1.Equals(val2);
+        bool IComparable<string>.IsGreaterThan(string val1, string val2) => throw new NotImplementedException();
+        bool IComparable<string>.IsGreaterThanOrEqualTo(string val1, string val2) => throw new NotImplementedException();
+
     }
 }

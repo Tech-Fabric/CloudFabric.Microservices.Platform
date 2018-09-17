@@ -13,13 +13,37 @@ namespace CloudFabric.BuisnessRules.Enums
 
         public bool Compare<TStruct, T>(T field1, Comparer comparer, T field2) where TStruct : Structs.IComparable<T>, new()
         {
-            
+            var comparable = new TStruct();
             switch ((IsTypeEnum)comparer.Value)
             {
-                case IsTypeEnum.Is: return field1.Equals(field2);
-                case IsTypeEnum.IsNot: return !field1.Equals(field2);
+                case IsTypeEnum.Is: return comparable.IsEqual(field1, field2);
+                case IsTypeEnum.IsNot: return !comparable.IsEqual(field1, field2);
             }
             throw new Exception("invalid comparison");
+        }
+
+        public bool Compare(object field1, Comparer comparer, object field2)
+        {
+            var isNumber = field1 is sbyte
+            || field1 is byte
+            || field1 is short
+            || field1 is ushort
+            || field1 is int
+            || field1 is uint
+            || field1 is long
+            || field1 is ulong
+            || field1 is float
+            || field1 is double
+            || field1 is decimal;
+
+            if (isNumber)
+            {
+                return Compare<Comparable>(Convert.ToDouble(field1), comparer, Convert.ToDouble(field2));
+            }
+            else
+            {
+                return Compare<Comparable>(Convert.ToString(field1), comparer, Convert.ToString(field2));
+            }
         }
 
         public bool Compare<TStruct>(int field1, Comparer comparer, int field2) where TStruct : Structs.IComparable<int>, new() => Compare<TStruct, int>(field1, comparer, field2);

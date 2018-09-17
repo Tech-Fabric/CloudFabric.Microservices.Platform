@@ -6,7 +6,7 @@ namespace CloudFabric.BuisnessRules.Enums
 {
     public enum IsTypeEnum
     {
-        Is,
-        IsNot
+        Is = 0,
+        IsNot = 1
     }
 }
