@@ -5,8 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="GraphQL" Version="0.17.3" />
     <PackageReference Include="IdentityModel" Version="3.8.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
+    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.5.0" />
   </ItemGroup>
 
 </Project>
