@@ -3,13 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudFabric.Logging", "CloudFabric.Logging\CloudFabric.Logging.csproj", "{B3DC2808-67BA-4916-A403-F37F8F9EC273}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudFabric.Logging", "CloudFabric.Logging\CloudFabric.Logging.csproj", "{B3DC2808-67BA-4916-A403-F37F8F9EC273}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudFabric.Platform", "CloudFabric.Platform\CloudFabric.Platform.csproj", "{C200FD81-04CB-4EE1-957F-6382A4EEB1F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudFabric.Platform", "CloudFabric.Platform\CloudFabric.Platform.csproj", "{C200FD81-04CB-4EE1-957F-6382A4EEB1F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudFabric.Auth", "CloudFabric.Auth\CloudFabric.Auth.csproj", "{20901013-F1F3-4D76-8181-D4EEBA2A859B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudFabric.Auth", "CloudFabric.Auth\CloudFabric.Auth.csproj", "{20901013-F1F3-4D76-8181-D4EEBA2A859B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudFabric.EventStore", "CloudFabric.EventStore\CloudFabric.EventStore.csproj", "{4CE5CE8D-E94D-4B19-AFC9-FEE7013777C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudFabric.EventStore", "CloudFabric.EventStore\CloudFabric.EventStore.csproj", "{4CE5CE8D-E94D-4B19-AFC9-FEE7013777C5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudFabric.CosmosDb", "CloudFabric.CosmosDb\CloudFabric.CosmosDb.csproj", "{E1850E20-CE13-4B46-BFB5-6324AE360E28}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudFabric.EventGrid", "CloudFabric.EventGrid\CloudFabric.EventGrid.csproj", "{8344F864-1643-48C7-9096-EA2FD6C2F941}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudFabric.BuisnessRules", "CloudFabric.BuisnessRules\CloudFabric.BuisnessRules.csproj", "{B1F83C55-CB95-4217-A364-3F3A8E560F87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudFabric.BuisnessRules.Tests", "CloudFabric.BuisnessRules.Tests\CloudFabric.BuisnessRules.Tests.csproj", "{4FE25C99-BDFF-4B23-8CFA-52AC619B8A23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +41,22 @@ Global
 		{4CE5CE8D-E94D-4B19-AFC9-FEE7013777C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CE5CE8D-E94D-4B19-AFC9-FEE7013777C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CE5CE8D-E94D-4B19-AFC9-FEE7013777C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1850E20-CE13-4B46-BFB5-6324AE360E28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1850E20-CE13-4B46-BFB5-6324AE360E28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1850E20-CE13-4B46-BFB5-6324AE360E28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1850E20-CE13-4B46-BFB5-6324AE360E28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8344F864-1643-48C7-9096-EA2FD6C2F941}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8344F864-1643-48C7-9096-EA2FD6C2F941}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8344F864-1643-48C7-9096-EA2FD6C2F941}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8344F864-1643-48C7-9096-EA2FD6C2F941}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1F83C55-CB95-4217-A364-3F3A8E560F87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1F83C55-CB95-4217-A364-3F3A8E560F87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1F83C55-CB95-4217-A364-3F3A8E560F87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1F83C55-CB95-4217-A364-3F3A8E560F87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FE25C99-BDFF-4B23-8CFA-52AC619B8A23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FE25C99-BDFF-4B23-8CFA-52AC619B8A23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FE25C99-BDFF-4B23-8CFA-52AC619B8A23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FE25C99-BDFF-4B23-8CFA-52AC619B8A23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
