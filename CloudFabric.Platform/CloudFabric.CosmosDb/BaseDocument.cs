@@ -9,7 +9,6 @@ namespace CloudFabric.CosmosDb
 {
     public abstract class BaseDocument
     {
-        [JsonConverter(typeof(ComplexTypeConverter))]
         [BsonId]
         public virtual ObjectId Id { get; set; }
 
