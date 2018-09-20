@@ -1,11 +1,9 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using System;
+using MongoDB.Bson;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using MongoDB.Bson.Serialization.Attributes;
 
-namespace CloudFabric.CosmosDb
+namespace CloudFabric.CosmosDb.MongoAPI
 {
     public abstract class BaseDocument
     {

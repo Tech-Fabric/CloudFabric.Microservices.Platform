@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Driver;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
-namespace CloudFabric.CosmosDb
+namespace CloudFabric.CosmosDb.MongoAPI
 {
     public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseDocument
     {
@@ -83,8 +81,6 @@ namespace CloudFabric.CosmosDb
         {
             return _dbContext.GetPartitionKey(PartitonPrefix, id, NumberOfPartitions);
         }
-
-
 
         public FilterDefinition<T> BuildIsDeletedFilter(bool? isDeleted)
         {

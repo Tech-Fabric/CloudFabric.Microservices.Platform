@@ -1,11 +1,11 @@
-﻿using MongoDB.Bson;
+﻿using System;
+using System.Text;
+using MongoDB.Bson;
 using MongoDB.Driver;
-using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
-using System.Text;
 
-namespace CloudFabric.CosmosDb
+namespace CloudFabric.CosmosDb.MongoAPI
 {
     public abstract class BaseCosmoDbContext : IDisposable
     {
@@ -21,10 +21,7 @@ namespace CloudFabric.CosmosDb
             }
 
             _client = new MongoClient(cosmoConnectionString);
-
         }
-
-
 
         public IMongoDatabase GetDatabase(string name)
         {
@@ -50,7 +47,6 @@ namespace CloudFabric.CosmosDb
                 o.LastUpdatedAt = DateTime.UtcNow;
             });
         }
-
 
         public string GetPartitionKey(string prefix, string id, int numberOfPartitions)
         {

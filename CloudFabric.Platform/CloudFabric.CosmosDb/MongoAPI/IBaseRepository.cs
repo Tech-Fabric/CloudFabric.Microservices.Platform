@@ -1,11 +1,9 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
-namespace CloudFabric.CosmosDb
+namespace CloudFabric.CosmosDb.MongoAPI
 {
     public interface IBaseRepository<T> where T : BaseDocument
     {
