@@ -62,8 +62,7 @@ namespace CloudFabric.CosmosDb.SQLAPI
                         id
                     )
                 );
-
-                return (T)(dynamic)document;
+                throw new Exception();
             }
             catch (DocumentClientException e)
             {
