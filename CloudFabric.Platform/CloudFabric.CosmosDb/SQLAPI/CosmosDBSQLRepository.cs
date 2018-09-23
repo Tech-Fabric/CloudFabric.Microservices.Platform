@@ -7,6 +7,8 @@ using Microsoft.Azure.Documents;
 using System.Collections.Generic;
 using Microsoft.Azure.Documents.Linq;
 using Microsoft.Azure.Documents.Client;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace CloudFabric.CosmosDb.SQLAPI
 {
@@ -15,11 +17,12 @@ namespace CloudFabric.CosmosDb.SQLAPI
         private static string _database;
         private static DocumentClient _client;
 
-        public static void Initialize(string uri, string database, string sharedAccessKey)
+        public static void Initialize(string uri, string sharedAccessKey, string database, string collection)
         {
             _database = database;
             _client = new DocumentClient(new Uri(uri), sharedAccessKey);
             CreateDatabaseIfNotExistsAsync().Wait();
+            CreateCollectionIfNotExistsAsync(collection).Wait();
         }
 
         public static async Task<IEnumerable<T>> GetItemsAsync(Expression<Func<T, bool>> predicate, string collection)
@@ -132,6 +135,38 @@ namespace CloudFabric.CosmosDb.SQLAPI
                     throw;
                 }
             }
+        }
+        private static async Task CreateCollectionIfNotExistsAsync(string collection)
+        {
+            try
+            {
+                Uri documentCollectionLink = UriFactory.CreateDocumentCollectionUri(_database, collection);
+                await _client.ReadDocumentCollectionAsync(documentCollectionLink);
+            }
+            catch (DocumentClientException e)
+            {
+                if (e.StatusCode == HttpStatusCode.NotFound)
+                {
+                    await _client.CreateDocumentCollectionAsync(
+                        UriFactory.CreateDatabaseUri(_database),
+                        new DocumentCollection { Id = collection },
+                        new RequestOptions { OfferThroughput = 400 });
+                }
+                else
+                {
+                    throw;
+                }
+            }
+        }
+
+        public static string GetPartitionKey(string prefix, string id, int numberOfPartitions)
+        {
+            var _md5 = MD5.Create();
+
+            var hashedValue = _md5.ComputeHash(Encoding.UTF8.GetBytes(id));
+            var asInt = BitConverter.ToInt32(hashedValue, 0);
+            asInt = asInt == int.MinValue ? asInt + 1 : asInt;
+            return $"{prefix}{Math.Abs(asInt) % numberOfPartitions}";
         }
     }
 }
