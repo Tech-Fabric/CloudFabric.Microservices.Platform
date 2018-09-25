@@ -49,6 +49,9 @@ namespace CloudFabric.EventGrid
             #region cosmosdb
             try
             {
+                Console.WriteLine("--------------------------------------------");
+                Console.WriteLine($"database connection string: {_databaseConnectionString}");
+                Console.WriteLine($"database name: {_databaseName}");
                 if (_databaseConnectionString != null && _databaseName != null)
                 {
                     var client = new MongoClient(_databaseConnectionString);
@@ -57,9 +60,11 @@ namespace CloudFabric.EventGrid
                     collection.InsertMany(events);
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                throw new Exception("Unable to save event to cosmos db.");
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                throw;
             }
             
             #endregion
