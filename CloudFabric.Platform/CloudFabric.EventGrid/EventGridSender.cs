@@ -51,7 +51,7 @@ namespace CloudFabric.EventGrid
             {
                 var client = new MongoClient(_databaseConnectionString);
                 var database = client.GetDatabase(_databaseName);
-                var collection = database.GetCollection<object>("Events");
+                var collection = database.GetCollection<BaseEvent<TEventType>>("Events");
                 collection.InsertMany(events);
             }
             #endregion
