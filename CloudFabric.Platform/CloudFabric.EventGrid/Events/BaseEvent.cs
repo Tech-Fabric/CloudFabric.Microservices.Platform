@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using CloudFabric.Library.Common.Utilities;
 using Microsoft.Azure.EventGrid.Models;
 using Newtonsoft.Json;
 
@@ -13,11 +14,11 @@ namespace CloudFabric.EventGrid.Events
     public class BaseEvent<TDataType> : EventGridEvent
     {
         [JsonIgnore]
-        public new BaseEventData<TDataType> TypedData
+        public BaseEventData<TDataType> TypedData
         {
             get
             {
-                return (BaseEventData<TDataType>)Data;
+                return MapperUtility.Map<object, BaseEventData<TDataType>>(Data);
             }
             set
             {
