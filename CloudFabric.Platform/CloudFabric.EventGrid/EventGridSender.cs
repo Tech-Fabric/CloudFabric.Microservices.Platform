@@ -47,13 +47,21 @@ namespace CloudFabric.EventGrid
 
 
             #region cosmosdb
-            if(_databaseConnectionString != null && _databaseName != null)
+            try
             {
-                var client = new MongoClient(_databaseConnectionString);
-                var database = client.GetDatabase(_databaseName);
-                var collection = database.GetCollection<BaseEvent<TEventType>>("Events");
-                collection.InsertMany(events);
+                if (_databaseConnectionString != null && _databaseName != null)
+                {
+                    var client = new MongoClient(_databaseConnectionString);
+                    var database = client.GetDatabase(_databaseName);
+                    var collection = database.GetCollection<BaseEvent<TEventType>>("Events");
+                    collection.InsertMany(events);
+                }
             }
+            catch
+            {
+                throw new Exception("Unable to save event to cosmos db.");
+            }
+            
             #endregion
 
 
