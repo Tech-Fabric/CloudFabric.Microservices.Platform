@@ -6,7 +6,7 @@ namespace CloudFabric.BuisnessRules.Enums
 {
     public enum ConnectorTypeEnum
     {
-        And,
-        Or,
+        And = 1,
+        Or = 2,
     }
 }

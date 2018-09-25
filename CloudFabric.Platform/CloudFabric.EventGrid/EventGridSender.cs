@@ -1,4 +1,5 @@
-﻿using CloudFabric.EventGrid.Events;
+﻿using CloudFabric.CosmosDb.MongoAPI;
+using CloudFabric.EventGrid.Events;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,9 @@ namespace CloudFabric.EventGrid
     public class EventGridSender
     {
         private HttpClient _httpClient;
-        public EventGridSender(HttpClient httpClient)
+        private BaseCosmoDbContext _dbContext;
+
+        public EventGridSender(HttpClient httpClient, BaseCosmoDbContext dbContext)
         {
             _httpClient = httpClient;
         }
@@ -37,6 +40,12 @@ namespace CloudFabric.EventGrid
             {
                 Content = new StringContent(json, Encoding.UTF8, "application/json")
             };
+
+            var collection = _dbContext.GetDatabase("ApproveEngine-dev01").GetCollection<object>("Events");
+            collection.InsertMany(events);
+
+
+
 
             HttpResponseMessage response = await _httpClient.SendAsync(request);
 
