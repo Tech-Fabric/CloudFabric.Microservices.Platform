@@ -1,5 +1,6 @@
 ﻿using CloudFabric.CosmosDb.MongoAPI;
 using CloudFabric.EventGrid.Events;
+using MongoDB.Driver;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,14 @@ namespace CloudFabric.EventGrid
     public class EventGridSender
     {
         private HttpClient _httpClient;
-        private BaseCosmoDbContext _dbContext;
+        private string _databaseConnectionString;
+        private string _databaseName;
 
-        public EventGridSender(HttpClient httpClient, BaseCosmoDbContext dbContext)
+        public EventGridSender(HttpClient httpClient, string databaseConnectionString = null, string databaseName = null)
         {
             _httpClient = httpClient;
+            _databaseConnectionString = databaseConnectionString;
+            _databaseName = databaseName;
         }
 
         public async Task SendAsync<TEvent, TEventType>(string topicEndpoint, string sasKey, TEvent e) where TEvent : BaseEvent<TEventType>
@@ -41,8 +45,16 @@ namespace CloudFabric.EventGrid
                 Content = new StringContent(json, Encoding.UTF8, "application/json")
             };
 
-            var collection = _dbContext.GetDatabase("ApproveEngine-dev01").GetCollection<object>("Events");
-            collection.InsertMany(events);
+
+            #region cosmosdb
+            if(_databaseConnectionString != null && _databaseName != null)
+            {
+                var client = new MongoClient(_databaseConnectionString);
+                var database = client.GetDatabase(_databaseName);
+                var collection = database.GetCollection<object>("Events");
+                collection.InsertMany(events);
+            }
+            #endregion
 
 
 
