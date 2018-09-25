@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Azure.EventGrid.Models;
-
+using Newtonsoft.Json;
 
 namespace CloudFabric.EventGrid.Events
 {
@@ -12,7 +12,18 @@ namespace CloudFabric.EventGrid.Events
     }
     public class BaseEvent<TDataType> : EventGridEvent
     {
-        public new BaseEventData<TDataType> Data { get; set; }
+        [JsonIgnore]
+        public new BaseEventData<TDataType> TypedData
+        {
+            get
+            {
+                return (BaseEventData<TDataType>)Data;
+            }
+            set
+            {
+                Data = value;
+            }
+        }
 
         public bool EqualsType(BaseEvent e)
         {
