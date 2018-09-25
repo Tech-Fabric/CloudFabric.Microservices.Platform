@@ -14,15 +14,12 @@ namespace CloudFabric.CosmosDb.MongoAPI
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            object instance = Activator.CreateInstance(objectType);
-            JObject jo = JObject.Load(reader);
-
-            return ObjectId.Parse(jo.Value<string>());
+            return ObjectId.Parse((string)reader.Value);
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            writer.WriteRawValue(value.ToString());
+            writer.WriteValue(value.ToString());
         }
     }
 }

@@ -15,9 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudFabric.CosmosDb", "Clo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudFabric.EventGrid", "CloudFabric.EventGrid\CloudFabric.EventGrid.csproj", "{8344F864-1643-48C7-9096-EA2FD6C2F941}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudFabric.BuisnessRules", "CloudFabric.BuisnessRules\CloudFabric.BuisnessRules.csproj", "{B1F83C55-CB95-4217-A364-3F3A8E560F87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudFabric.BuisnessRules", "CloudFabric.BuisnessRules\CloudFabric.BuisnessRules.csproj", "{B1F83C55-CB95-4217-A364-3F3A8E560F87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudFabric.BuisnessRules.Tests", "CloudFabric.BuisnessRules.Tests\CloudFabric.BuisnessRules.Tests.csproj", "{4FE25C99-BDFF-4B23-8CFA-52AC619B8A23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudFabric.BuisnessRules.Tests", "CloudFabric.BuisnessRules.Tests\CloudFabric.BuisnessRules.Tests.csproj", "{4FE25C99-BDFF-4B23-8CFA-52AC619B8A23}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudFabric.CosmosDb.Tests", "CloudFabric.CosmosDb.Tests\CloudFabric.CosmosDb.Tests.csproj", "{A78FF2BB-5201-40C4-A2C2-23D041012058}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{4FE25C99-BDFF-4B23-8CFA-52AC619B8A23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FE25C99-BDFF-4B23-8CFA-52AC619B8A23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4FE25C99-BDFF-4B23-8CFA-52AC619B8A23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A78FF2BB-5201-40C4-A2C2-23D041012058}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A78FF2BB-5201-40C4-A2C2-23D041012058}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A78FF2BB-5201-40C4-A2C2-23D041012058}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A78FF2BB-5201-40C4-A2C2-23D041012058}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

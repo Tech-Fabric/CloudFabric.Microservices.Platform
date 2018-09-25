@@ -8,6 +8,7 @@ namespace CloudFabric.CosmosDb.MongoAPI
     public abstract class BaseDocument
     {
         [BsonId]
+        [JsonConverter(typeof(ComplexTypeConverter))]
         public virtual ObjectId Id { get; set; }
 
         public virtual DateTime CreatedAt { get; set; }
