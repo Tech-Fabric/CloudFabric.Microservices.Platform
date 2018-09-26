@@ -1,5 +1,7 @@
 ﻿using CloudFabric.CosmosDb.MongoAPI;
 using CloudFabric.EventGrid.Events;
+using CloudFabric.Library.Common.Utilities;
+using Microsoft.Azure.EventGrid.Models;
 using MongoDB.Driver;
 using Newtonsoft.Json;
 using System;
@@ -29,7 +31,11 @@ namespace CloudFabric.EventGrid
         }
         public async Task SendAsync<TEvent, TEventType>(string topicEndpoint, string sasKey, List<TEvent> events) where TEvent : BaseEvent<TEventType>
         {
-        
+            await SendAsync(topicEndpoint, sasKey, MapperUtility.Map<List<TEvent>, List<EventGridEvent>>(events));
+        }
+
+        public async Task SendAsync(string topicEndpoint, string sasKey, List<EventGridEvent> events)
+        {
             _httpClient.DefaultRequestHeaders.Add("aeg-sas-key", sasKey);
 
             events.ForEach(e =>
@@ -56,17 +62,17 @@ namespace CloudFabric.EventGrid
                 {
                     var client = new MongoClient(_databaseConnectionString);
                     var database = client.GetDatabase(_databaseName);
-                    var collection = database.GetCollection<BaseEvent<TEventType>>("Events");
+                    var collection = database.GetCollection<EventGridEvent>("Events");
                     collection.InsertMany(events);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.StackTrace);
                 throw;
             }
-            
+
             #endregion
 
 
@@ -75,6 +81,7 @@ namespace CloudFabric.EventGrid
             HttpResponseMessage response = await _httpClient.SendAsync(request);
 
             await Task.CompletedTask;
+
         }
 
     }
