@@ -25,16 +25,16 @@ namespace CloudFabric.EventGrid
             _databaseName = databaseName;
         }
 
-        public async Task SendAsync<TEvent, TEventType>(string topicEndpoint, string sasKey, TEvent e) where TEvent : BaseEvent<TEventType>
+        public async Task<HttpResponseMessage> SendAsync<TEvent, TEventType>(string topicEndpoint, string sasKey, TEvent e) where TEvent : BaseEvent<TEventType>
         {
-            await SendAsync<TEvent, TEventType>(topicEndpoint, sasKey, new List<TEvent> { e });
+            return await SendAsync<TEvent, TEventType>(topicEndpoint, sasKey, new List<TEvent> { e });
         }
-        public async Task SendAsync<TEvent, TEventType>(string topicEndpoint, string sasKey, List<TEvent> events) where TEvent : BaseEvent<TEventType>
+        public async Task<HttpResponseMessage> SendAsync<TEvent, TEventType>(string topicEndpoint, string sasKey, List<TEvent> events) where TEvent : BaseEvent<TEventType>
         {
-            await SendAsync(topicEndpoint, sasKey, MapperUtility.Map<List<TEvent>, List<EventGridEvent>>(events));
+            return await SendAsync(topicEndpoint, sasKey, MapperUtility.Map<List<TEvent>, List<EventGridEvent>>(events));
         }
 
-        public async Task SendAsync(string topicEndpoint, string sasKey, List<EventGridEvent> events)
+        public async Task<HttpResponseMessage> SendAsync(string topicEndpoint, string sasKey, List<EventGridEvent> events)
         {
             _httpClient.DefaultRequestHeaders.Add("aeg-sas-key", sasKey);
 
@@ -78,10 +78,7 @@ namespace CloudFabric.EventGrid
 
 
 
-            HttpResponseMessage response = await _httpClient.SendAsync(request);
-
-            await Task.CompletedTask;
-
+            return await _httpClient.SendAsync(request);
         }
 
     }
