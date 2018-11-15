@@ -1,7 +1,6 @@
 using CloudFabric.CosmosDb.MongoAPI;
 using MongoDB.Bson;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -40,13 +39,21 @@ namespace CloudFabric.CosmosDb.Tests
             var obj = new TestClass2();
             obj.Id = ObjectId.GenerateNewId();
             obj.Ids = new List<ObjectId>();
-            for(var i = 0; i < 3; i++)
+            for (var i = 0; i < 3; i++)
             {
                 obj.Ids.Add(ObjectId.GenerateNewId());
             }
 
             var json = JsonConvert.SerializeObject(obj);
 
+            var deserialized = JsonConvert.DeserializeObject<TestClass2>(json);
+
+        }
+
+        [Fact]
+        public void InvalidObjectIdsBecomeEmpty()
+        {
+            var json = "{\"ids\": [\"s\", \"\", \"Another Invalid\"]}";
             var deserialized = JsonConvert.DeserializeObject<TestClass2>(json);
 
         }

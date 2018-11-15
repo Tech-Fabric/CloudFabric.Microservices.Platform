@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CloudFabric.CosmosDb.MongoAPI
 {
@@ -20,20 +20,32 @@ namespace CloudFabric.CosmosDb.MongoAPI
             if (token.Type == JTokenType.Array)
             {
                 var listStrings = token.ToObject<List<string>>();
-                return listStrings.Select(id => ObjectId.Parse(id)).ToList();
+                return listStrings.Select(id => Parse(id)).ToList();
             }
             else
             {
-                return ObjectId.Parse(token.Value<string>());
+                return Parse(token.Value<string>());
+            }
+        }
+
+        public ObjectId Parse(string id)
+        {
+            try
+            {
+                return ObjectId.Parse(id);
+            }
+            catch
+            {
+                return ObjectId.Empty;
             }
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            if(value.GetType() == typeof(List<ObjectId>))
+            if (value.GetType() == typeof(List<ObjectId>))
             {
                 writer.WriteStartArray();
-                foreach(var id in ((List<ObjectId>)value))
+                foreach (var id in ((List<ObjectId>)value))
                 {
                     writer.WriteValue(id.ToString());
                 }
