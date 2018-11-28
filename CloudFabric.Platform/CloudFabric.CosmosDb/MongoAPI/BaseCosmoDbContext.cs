@@ -23,6 +23,16 @@ namespace CloudFabric.CosmosDb.MongoAPI
             _client = new MongoClient(cosmoConnectionString);
         }
 
+        public BaseCosmoDbContext(string connectionString)
+        {
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                throw new Exception($"Invalid CosmosDb connectionString:{connectionString}");
+            }
+
+            _client = new MongoClient(connectionString);
+        }
+
         public IMongoDatabase GetDatabase(string name)
         {
             return _client.GetDatabase(name);
