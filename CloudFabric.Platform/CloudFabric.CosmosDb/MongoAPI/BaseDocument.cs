@@ -21,7 +21,7 @@ namespace CloudFabric.CosmosDb.MongoAPI
         [JsonConverter(typeof(ObjectIdTypeConverter))]
         public virtual ObjectId LastUpdatedBy { get; set; }
 
-        public virtual string DocumentType => "BaseDocument";
+        public virtual string DocumentType { get; set; }
         public virtual string PartitionKey { get; set; }
         public virtual bool IsDeleted { get; set; }
     }
