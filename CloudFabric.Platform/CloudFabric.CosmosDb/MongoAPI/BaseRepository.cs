@@ -2,11 +2,16 @@
 using MongoDB.Driver;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System;
+using System.Linq;
+using Microsoft.ApplicationInsights;
+using Microsoft.Extensions.Logging;
 
 namespace CloudFabric.CosmosDb.MongoAPI
 {
     public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseDocument
     {
+        ILogger<BaseRepository<T>> _logger;
         protected BaseCosmoDbContext _dbContext;
         public abstract string CollectionName { get; }
         public abstract string DatabaseName { get; }
@@ -18,9 +23,9 @@ namespace CloudFabric.CosmosDb.MongoAPI
         protected abstract int NumberOfPartitions { get; }
         protected abstract string PartitonPrefix { get; }
 
-
-        public BaseRepository(BaseCosmoDbContext dbContext)
+        public BaseRepository(BaseCosmoDbContext dbContext, ILogger<BaseRepository<T>> logger)
         {
+            _logger = logger;
             _dbContext = dbContext;
             Database = _dbContext.GetDatabase(DatabaseName);
             Collection = Database.GetCollection<T>(CollectionName);
@@ -36,23 +41,65 @@ namespace CloudFabric.CosmosDb.MongoAPI
             return document;
         }
 
-        public async Task DeleteAsync(ObjectId id)
+        public async Task<bool> DeleteAsync(ObjectId id)
         {
-            await DeleteAsync(new List<ObjectId> { id });
-        }
-        public async Task DeleteAsync(List<ObjectId> ids)
-        {
-            List<T> documents = new List<T>();
-            foreach(var id in ids)
+            try
             {
-                var doc = await GetByIdAsync(id);
+                bool success = false;
+                var _dictionary =  await DeleteAsync(new List<ObjectId> { id });
+                _dictionary.TryGetValue(id, out success);
 
-                if (doc != null)
+                return success;
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex.Message + " " + ex.StackTrace);
+                return false;
+            }
+        }
+        public async Task<Dictionary<ObjectId, bool>> DeleteAsync(List<ObjectId> ids)
+        {
+            var _dictionary = new Dictionary<ObjectId, bool>();
+
+            try
+            {
+                List<T> documents = new List<T>();
+
+                var disctinctIds = ids.Distinct();
+
+                foreach (var id in disctinctIds)
                 {
-                    doc.IsDeleted = true;
-                    await UpdateAsync(doc);
+                    try
+                    {
+                        var doc = await GetByIdAsync(id);
+
+                        if (doc != null)
+                        {
+                            if (!doc.IsDeleted)
+                            {
+                                doc.IsDeleted = true;
+                                await UpdateAsync(doc);
+                            }
+                            _dictionary.Add(id, true);
+                        }
+                        else
+                        {
+                            _dictionary.Add(id, false);
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        _logger.LogError("Failed to delete the document with ID : " + id + " " + ex.Message + " " + ex.StackTrace);
+                        _dictionary.Add(id, false);
+                    }
                 }
             }
+            catch(Exception ex)
+            {
+                _logger.LogError("Deleting documents failed");
+                return null;
+            }
+            return _dictionary;
         }
 
         public async Task<T> GetByIdAsync(ObjectId id)
@@ -80,7 +127,8 @@ namespace CloudFabric.CosmosDb.MongoAPI
 
         public string GetPartitionKey(string id)
         {
-            return _dbContext.GetPartitionKey(PartitonPrefix, id, NumberOfPartitions);
+            var _partitionKey = _dbContext.GetPartitionKey(PartitonPrefix, id, NumberOfPartitions);
+            return _partitionKey;
         }
 
         public FilterDefinition<T> BuildIsDeletedFilter(bool? isDeleted)
