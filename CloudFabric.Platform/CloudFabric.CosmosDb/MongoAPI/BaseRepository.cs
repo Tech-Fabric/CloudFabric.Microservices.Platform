@@ -45,13 +45,14 @@ namespace CloudFabric.CosmosDb.MongoAPI
             List<T> documents = new List<T>();
             foreach(var id in ids)
             {
-                documents.Add(await GetByIdAsync(id));
-            }
+                var doc = await GetByIdAsync(id);
 
-            documents.ForEach(async doc => {
-                doc.IsDeleted = true;
-                await UpdateAsync(doc);
-            });
+                if (doc != null)
+                {
+                    doc.IsDeleted = true;
+                    await UpdateAsync(doc);
+                }
+            }
         }
 
         public async Task<T> GetByIdAsync(ObjectId id)
