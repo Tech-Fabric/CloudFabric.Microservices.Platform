@@ -13,8 +13,6 @@ namespace CloudFabric.CosmosDb.MongoAPI
     {
         ILogger<BaseRepository<T>> _logger;
         protected BaseCosmoDbContext _dbContext;
-        public abstract string CollectionName { get; }
-        public abstract string DatabaseName { get; }
 
         protected readonly IMongoDatabase Database;
         public readonly IMongoCollection<T> Collection;
@@ -23,12 +21,12 @@ namespace CloudFabric.CosmosDb.MongoAPI
         protected abstract int NumberOfPartitions { get; }
         protected abstract string PartitonPrefix { get; }
 
-        public BaseRepository(BaseCosmoDbContext dbContext, ILogger<BaseRepository<T>> logger)
+        public BaseRepository(BaseCosmoDbContext dbContext, ILogger<BaseRepository<T>> logger, string databaseName, string collectionName)
         {
             _logger = logger;
             _dbContext = dbContext;
-            Database = _dbContext.GetDatabase(DatabaseName);
-            Collection = Database.GetCollection<T>(CollectionName);
+            Database = _dbContext.GetDatabase(databaseName);
+            Collection = Database.GetCollection<T>(collectionName);
         }
         public async Task<T> CreateAsync(T document)
         {
